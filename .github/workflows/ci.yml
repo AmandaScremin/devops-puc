@@ -28,7 +28,6 @@ jobs:
     - name: Run tests
       run: pytest
 
-    # Send email on failure
     - name: Send email notification on failure
       if: failure()
       uses: dawidd6/action-send-mail@v3
@@ -38,6 +37,6 @@ jobs:
         username: ${{ secrets.SMTP_USERNAME }}
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: Workflow failure alert
-        to: youremail@example.com
-        from: youremail@example.com
+        to: amandascremin24@gmail.com
+        from: amandascremin24@gmail.com
         body: "The workflow has failed. Please check the logs."
