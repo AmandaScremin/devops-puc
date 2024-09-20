@@ -1,10 +1,13 @@
-name: Python CI
+
+name: Python CI/CD
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -24,3 +27,17 @@ jobs:
 
     - name: Run tests
       run: pytest
+
+    # Send email on failure
+    - name: Send email notification on failure
+      if: failure()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.example.com
+        server_port: 465
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: Workflow failure alert
+        to: youremail@example.com
+        from: youremail@example.com
+        body: "The workflow has failed. Please check the logs."
